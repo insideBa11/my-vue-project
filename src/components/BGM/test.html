@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        #div {
+            width: 50px;
+            height: 50px;
+            background-color: #0077aa;
+            position: absolute;
+        }
+    </style>
+</head>
+<body>
+<div id="div"></div>
+<script>
+	const div = document.getElementById('div');
+
+	var isDown, x, y, l, t
+	div.onmousedown = function (e) {
+		//获取x坐标和y坐标
+		 x = e.clientX;
+		 y = e.clientY;
+
+		//获取左部和顶部的偏移量
+		 l = div.offsetLeft;
+		 t = div.offsetTop;
+		//开关打开
+		isDown = true;
+		//设置样式
+		div.style.cursor = 'move';
+	}
+	div.onmousemove = function (e) {
+		if (isDown == false) {
+			return;
+		}
+		//获取x和y
+		var nx = e.clientX;
+		var ny = e.clientY;
+		//计算移动后的左偏移量和顶部的偏移量
+		var nl = nx - (x - l);
+		var nt = ny - (y - t);
+		div.style.left = nl + 'px';
+		div.style.top = nt + 'px';
+	}
+	div.onmouseup = function () {
+		//开关关闭
+		isDown = false;
+		div.style.cursor = 'default';
+	}
+	document.onmousemove = function(e) {
+		if (isDown == false) {
+			return;
+		}
+		//获取x和y
+		var nx = e.clientX;
+		var ny = e.clientY;
+		//计算移动后的左偏移量和顶部的偏移量
+		var nl = nx - (x - l);
+		var nt = ny - (y - t);
+		div.style.left = nl + 'px';
+		div.style.top = nt + 'px';
+	}
+</script>
+</body>
+</html>
